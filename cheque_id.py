@@ -4,7 +4,6 @@ import cv2
 from time import sleep
 import numpy as np
 
-
 def call(image):
     import cv2
     from sklearn.externals import joblib
@@ -49,7 +48,7 @@ def call(image):
         # Calculate the HOG features
         roi_hog_fd = hog(roi, orientations=9, pixels_per_cell=(14, 14), cells_per_block=(1, 1), visualise=False)
         nbr = clf.predict(np.array([roi_hog_fd], 'float64'))
-        cv2.putText(im, str(int(nbr[0])), (rect[0], rect[1]),cv2.FONT_HERSHEY_DUPLEX, 2, (0, 255, 255), 3)
+        cv2.putText(im, str(int(nbr[0])), (rect[0], rect[1]),cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 200, 200), 1)
         print(nbr[0])
     cv2.imshow("Resulting Image with Rectangular ROIs", im)
 #    cv2.waitKey()
@@ -96,7 +95,6 @@ crop_img = img[y:y+h, x:x+w]
 date = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
 
 call(date)
-
 cv2.line
 cv2.rectangle(canvas, (x, y), (x+w, y+h), (0, 255, 0), 3)
 #cv2.imshow("canvas", canvas)
