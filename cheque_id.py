@@ -21,7 +21,7 @@ def call(image):
     
     # Threshold the image
     ret, im_th = cv2.threshold(im_gray, 120, 255, cv2.THRESH_BINARY_INV)
-    cv2.imshow("Resulting Imasdangular ROIs", im_th)
+#    cv2.imshow("Resulting Imasdangular ROIs", im_th)
     # Find contours in the image
     _,ctrs, hier = cv2.findContours(im_th.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 #    print(ctrs,hier)
@@ -50,7 +50,7 @@ def call(image):
         nbr = clf.predict(np.array([roi_hog_fd], 'float64'))
         cv2.putText(im, str(int(nbr[0])), (rect[0], rect[1]),cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 200, 200), 1)
         print(nbr[0])
-    cv2.imshow("Resulting Image with Rectangular ROIs", im)
+#    cv2.imshow("Resulting Image with Rectangular ROIs", im)
 #    cv2.waitKey()
     
     
@@ -92,7 +92,15 @@ crop_img = img[y:y+h, x:x+w]
 
 
 #cropped image will hold the cheque (crop_img)
-date = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
+date = crop_img[int(h*0.07):int(h*0.12), int(w*0.75):int(w*0.965)]
+name = crop_img[int(h*0.17):int(h*0.27), int(w*0.07):int(w*0.6)]
+amt_words1 = crop_img[int(h*0.28):int(h*0.37), int(w*0.15):int(w*0.72)]
+amt_words2 = crop_img[int(h*0.37):int(h*0.37), int(w*0.15):int(w*0.72)]
+#amt_no = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
+cv2.imshow('name',amt_words1)
+#cv2.imshow('date',date)
+#acc_no = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
+#micr_code = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
 
 call(date)
 cv2.line
@@ -100,5 +108,5 @@ cv2.rectangle(canvas, (x, y), (x+w, y+h), (0, 255, 0), 3)
 #cv2.imshow("canvas", canvas)
 #cv2.imshow("asdasd", date)
 #cv2.imwrite("result.jpg", canvas)
-cv2.waitKey(0)
+#cv2.waitKey(0)
 
