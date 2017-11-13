@@ -11,29 +11,17 @@ def call(image):
     import numpy as np
     
     # Load the classifier
-    clf = joblib.load("digits_cls.pkl")
-    # Read the input image 
-    im = image
+    #havent created one yet. 
     
-    # Convert to grayscale and apply Gaussian filtering
+    im = image
     im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
     im_gray = cv2.GaussianBlur(im_gray, (5, 5), 0)
-    
-    # Threshold the image
     ret, im_th = cv2.threshold(im_gray, 120, 255, cv2.THRESH_BINARY_INV)
-#    cv2.imshow("Resulting Imasdangular ROIs", im_th)
-    # Find contours in the image
+    cv2.imshow("Resulting Imasdangular ROIs", im_th)
     _,ctrs, hier = cv2.findContours(im_th.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-#    print(ctrs,hier)
-    # Get rectangles contains each contour
     rects = [cv2.boundingRect(ctr) for ctr in ctrs]
-    
-    # For each rectangular region, calculate HOG features and predict
-    # the digit using Linear SVM.
     for rect in rects:
-        # Draw the rectangles
         cv2.rectangle(im, (rect[0], rect[1]), (rect[0] + rect[2], rect[1] + rect[3]), (0, 255, 0), 3) 
-        # Make the rectangular region around the digit
         leng = int(rect[3] * 1.6)
         pt1 = int(rect[1] + rect[3] // 2 - leng // 2)
         pt2 = int(rect[0] + rect[2] // 2 - leng // 2)
@@ -45,14 +33,9 @@ def call(image):
             roi = cv2.dilate(roi, (3, 3))
         else:
             continue;
-        # Calculate the HOG features
-        roi_hog_fd = hog(roi, orientations=9, pixels_per_cell=(14, 14), cells_per_block=(1, 1), visualise=False)
-        nbr = clf.predict(np.array([roi_hog_fd], 'float64'))
-        cv2.putText(im, str(int(nbr[0])), (rect[0], rect[1]),cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 200, 200), 1)
-        print(nbr[0])
-#    cv2.imshow("Resulting Image with Rectangular ROIs", im)
-#    cv2.waitKey()
-    
+        
+        cv2.putText(im, '', (rect[0], rect[1]),cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 200, 200), 1)
+    cv2.imshow("Resulting Image with Rectangular ROIs", im)
     
     
     
@@ -94,15 +77,16 @@ crop_img = img[y:y+h, x:x+w]
 #cropped image will hold the cheque (crop_img)
 date = crop_img[int(h*0.07):int(h*0.12), int(w*0.75):int(w*0.965)]
 name = crop_img[int(h*0.17):int(h*0.27), int(w*0.07):int(w*0.6)]
-amt_words1 = crop_img[int(h*0.28):int(h*0.37), int(w*0.15):int(w*0.72)]
-amt_words2 = crop_img[int(h*0.37):int(h*0.37), int(w*0.15):int(w*0.72)]
-#amt_no = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
-cv2.imshow('name',amt_words1)
-#cv2.imshow('date',date)
-#acc_no = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
-#micr_code = crop_img[int(h*0.05):int(h*0.11), int(w*0.79):int(w*0.935)]
+amt_words1 = crop_img[int(h*0.28):int(h*0.36), int(w*0.15):int(w*0.72)]
+amt_words2 = crop_img[int(h*0.36):int(h*0.45), int(w*0.03):int(w*0.65)]
+amt_no = crop_img[int(h*0.36):int(h*0.45), int(w*0.77):int(w*0.97)]
+acc_no = crop_img[int(h*0.49):int(h*0.55), int(w*0.09):int(w*0.40)]
 
-call(date)
+
+micr_code = crop_img[int(h*0.85):int(h*0.95), int(w*0.2):int(w*0.75)]
+cv2.imshow('name',micr_code)
+
+call(name)
 cv2.line
 cv2.rectangle(canvas, (x, y), (x+w, y+h), (0, 255, 0), 3)
 #cv2.imshow("canvas", canvas)
