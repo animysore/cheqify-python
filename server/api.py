@@ -10,15 +10,14 @@ def success(name):
 
 @app.route('/index',methods = ['POST', 'GET'])
 def login():
-   if request.method == 'POST':
-      #user = request.form['nm']
-      return redirect(url_for('success',name = "Poulami"))
-   else:
-      #user = request.args.get('nm')
-      #return redirect(url_for('success',name = user))
-      if request.args.get('key') and request.args.get('key') == '9cf1034d-08c0-497e-b638-4fdb533f0a91':
-        #request.headers.extend({'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'})
-        return requests.get('http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854').content
+   #if request.method == 'POST':
+      #user = request.form['
+   if request.method == 'GET':
+    request.headers.extend({'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'})
+    return requests.get('http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854').content
+    #if (request.args.get('key') and request.args.get('key') == '9cf1034d-08c0-497e-b638-4fdb533f0a91'):
+    request.headers.extend({'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'})
+      #return requests.get('http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854').content
 if __name__ == '__main__':
    app.run(debug = True)
 
