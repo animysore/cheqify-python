@@ -1,47 +1,47 @@
 import requests
-import flask
-from flask import Flask
+import json
+from PIL import Image
+import shutil
+import io
 from flask import Flask, redirect, url_for, request
-app = Flask(__name__)
+#app = Flask(__name__)
+def call(url,i):
+    para =  {
+                'team_id': '8730826854', 
+                'cheque_no': 123456, 
+            }
+    headers = {'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'}
+    #print (len(str(para))) # Prints 6717
+    r = requests.get(url, headers=headers)
+    #print (r.status_code) # Prints 200
+    #print(type(image))
 
-@app.route('/success/<name>')
-def success(name):
-   return 'welcome %s' % name
+    #img = Image.open(StringIO(r.content))
+    with open("img"+str(i)+".jpg", 'wb') as f:
+        f.write(r.content)
 
-@app.route('/index',methods = ['POST', 'GET'])
-def login():
-   #if request.method == 'POST':
-      #user = request.form['
-   if request.method == 'GET':
-    request.headers.extend({'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'})
-    return requests.get('http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854').content
-    #if (request.args.get('key') and request.args.get('key') == '9cf1034d-08c0-497e-b638-4fdb533f0a91'):
-    request.headers.extend({'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'})
-      #return requests.get('http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854').content
-if __name__ == '__main__':
-   app.run(debug = True)
+def maincall():
+    url = 'http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854'
+    para =  {
+                'team_id': '8730826854', 
+                'cheque_no': 123456, 
+            }
+    headers = {'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'}
+    r = requests.get(url, headers=headers)
+    if(r.status_code == 200):
+        data = json.loads(r.text)
+        NoOfImg = data['count']
+        with open('imagedata.json', 'w') as outfile:  
+            json.dump(data, outfile)
+    else:
+        return "Fail"
+    NoOfImg = data['count']
+    #print(NoOfImg)
+    for i in range(NoOfImg):
+        url = data['items'][i]['links'][0]['href']
+        call(url,i)
+#maincall()
 
 
-
-
-
-
-
-
-
-
-#url = 'https://private-anon-125930794b-chequegetinfo.apiary-mock.com/ChequeInfo/TEAM_ID/CHQ_NUM/9cf1034d-08c0-497e-b638-4fdb533f0a91'
-#para =  {
-#            'team_id': '8730826854', 
-#            'cheque_no': 123456, 
-#           }
-#
-#print (len(str(para))) # Prints 6717
-#with open("image.jpg", "rb") as image_file:
-#    #encoded_image = base64.b64encode(image_file.read())
-#    files = {'field_name': image_file}
-#    #cookie = {cookiename: token.value}
-#    r = requests.post(url, files=files,params=para)
-#r = requests.post(url, params=payload)
-#print (r.status_code) # Prints 200
-#print (r.text) # Prints expected JSON results
+    #print(data)
+    
