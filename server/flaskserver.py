@@ -3,6 +3,7 @@ import json
 from PIL import Image
 import shutil
 import io
+import sqlite3
 import os
 from flask import Flask, redirect, url_for, request
 from werkzeug.utils import secure_filename
@@ -19,8 +20,9 @@ def login():
         #user = request.form['
         maincall()
         return "Success"
-
-
+@app.route('/',methods = ['POST', 'GET'])
+def new():
+    return "hi"
 if __name__ == '__main__':
    app.run(debug = True)
 
