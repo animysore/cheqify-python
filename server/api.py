@@ -19,7 +19,7 @@ def call(url,i):
     #print(type(image))
 
     #img = Image.open(StringIO(r.content))
-    with open("img"+str(i)+".jpg", 'wb') as f:
+    with open(str(i)+".jpg", 'wb') as f:
         f.write(r.content)
 
 def maincall():
@@ -61,13 +61,10 @@ def maincall():
         url = data['items'][i]['links'][0]['href']
         conn.execute("INSERT INTO IMAGEINFO (amt_match,chq_date,micr_code,payee_ac_no,amount_digit,chq_num,san_no,chq_stale,amount_words,ben_name,act_type)\
         VALUES (?,?,?,?,?,?,?,?,?,?,?)",(data['items'][i]['amt_match'],data['items'][i]['chq_date'],data['items'][i]['micr_code'],data['items'][i]['payee_ac_no'],data['items'][i]['amount_digit'],data['items'][i]['chq_num'],data['items'][i]['san_no'],data['items'][i]['chq_stale'],data['items'][i]['amount_words'],data['items'][i]['ben_name'],data['items'][i]['act_type']));        
-
-
-        
         conn.commit()
-        call(url,i)
+        call(url,data['items'][i]['chq_num'])
     conn.close()
-maincall()
+#maincall()
 
 
     #print(data)
