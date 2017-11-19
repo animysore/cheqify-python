@@ -7,7 +7,7 @@ import sqlite3
 import os
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
-from api import call, maincall
+from api import call, maincall, dummy_data
 
 UPLOAD_FOLDER = '/home/aniruddha_mysore/cheqify-python/server/static/img'
 STATIC_PATH = '/static'
@@ -34,6 +34,11 @@ def view():
     cur.execute("SELECT * FROM IMAGEINFO")
     list = cur.fetchall()
     return render_template('upload.html', list = list)
+
+@app.route('/evaluate/<name>')
+def evaluate(name):
+    return render_template('evaluate.html', eval_data = dummy_data(name))
+
 
 @app.route('/',methods = ['POST', 'GET'])
 def new():

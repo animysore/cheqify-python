@@ -37,21 +37,7 @@
                         <h5 class="header col s12 light">Cheque recognition and text extraction using Tensorflow, OpenCV and Tesseract-OCR</h5>
                   </div>
                   <div class="row center">
-                        {% for i in list%}
-
-                        <tr>
-                              <td>
-                                    <p> {{i}} </p>
-                                    <img src="static/img/{{i[5]}}.jpg">
-                              </td>
-                              <td>
-                                    <form action="/evaluate/{{i[5]}}">
-                                          <button type="submit" class="btn waves-effect waves-light orange">Evaluate</button>
-                                    </form>
-                              </td>
-                        </tr>
-
-                        {% endfor %}
+                    Evaluated data : {{ eval_data }}
                   </div>
                   <br>
                   <br>

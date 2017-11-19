@@ -5,7 +5,9 @@ import shutil
 import io
 from flask import Flask, redirect, url_for, request
 import sqlite3
+import os
 
+script_dir = os.path.dirname(__file__) 
 #app = Flask(__name__)
 def call(url,i):
     para =  {
@@ -19,7 +21,7 @@ def call(url,i):
     #print(type(image))
 
     #img = Image.open(StringIO(r.content))
-    with open(str(i)+".jpg", 'wb') as f:
+    with open(os.path.join(script_dir, "static/img/"+str(i)+".jpg"), 'wb') as f:
         f.write(r.content)
 
 def maincall():
@@ -69,3 +71,16 @@ def maincall():
 
     #print(data)
     
+def dummy_data(id):
+	if(id == 964626):
+		data = {'name': "Aniruddha",'chq_no': 923468, 'date':'12/11/2017', 'amt': 10000, 'acc':45448795444,'valid':True, 'SAN':4545009, 'micr':213142}
+		return data
+	if(id == 2):
+		data = {'name': "Poulami",'chq_no': 567354, 'date':'15/11/2017', 'amt': 30000, 'acc':98719781987,'valid':True, 'SAN':8908008, 'micr':12314}
+		return data
+	if(id == 3):
+		data = {'name': "Kushal",'chq_no': 923468, 'date':'11/11/2017', 'amt': 20000, 'acc':45645634556,'valid':True, 'SAN':1231144, 'micr':786678}
+		return data
+	if(id == 4):
+		data = {'name': "Adish",'chq_no': 923468, 'date':'129/11/2017', 'amt': 50000, 'acc':34522341234,'valid':True, 'SAN':7897123, 'micr':345345}
+		return data
