@@ -20,7 +20,11 @@ def login():
     if request.method == 'POST':
         #user = request.form['
         maincall()
-        return "Success"
+        conn = sqlite3.connect('data.db')
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM IMAGEINFO")
+        list = cur.fetchall()
+        return render_template('upload.html', list = list)
 @app.route('/',methods = ['POST', 'GET'])
 def new():
     return render_template('index.html')
