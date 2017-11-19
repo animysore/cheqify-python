@@ -9,9 +9,10 @@ from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from api import call, maincall
 
-UPLOAD_FOLDER = '/home/poulami/Documents/Github/cheqify-python/server'
+UPLOAD_FOLDER = '/home/aniruddha_mysore/cheqify-python/server/static/img'
+STATIC_PATH = '/static'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-app = Flask(__name__)
+app = Flask(__name__, static_url_path=STATIC_PATH)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_filename(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
@@ -25,6 +26,15 @@ def login():
         cur.execute("SELECT * FROM IMAGEINFO")
         list = cur.fetchall()
         return render_template('upload.html', list = list)
+
+@app.route('/view',methods = ['POST', 'GET'])
+def view():
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM IMAGEINFO")
+    list = cur.fetchall()
+    return render_template('upload.html', list = list)
+
 @app.route('/',methods = ['POST', 'GET'])
 def new():
     return render_template('index.html')
