@@ -5,9 +5,10 @@ import shutil
 import io
 import sqlite3
 import os
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from api import call, maincall
+
 UPLOAD_FOLDER = '/home/poulami/Documents/Github/cheqify-python/server'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
@@ -22,9 +23,9 @@ def login():
         return "Success"
 @app.route('/',methods = ['POST', 'GET'])
 def new():
-    return "hi"
+    return render_template('index.html')
 if __name__ == '__main__':
-   app.run(debug = True)
+   app.run(debug = True, host='0.0.0.0')
 
 
 
