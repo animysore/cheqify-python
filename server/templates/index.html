@@ -1,8 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <body>
-      <form action = "http://localhost:5000/index" method = "post">
-         <p><input type = "submit" value = "GET" /></p>
-      </form>
-    </body>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Cheqify</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="blue" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Cheqify</a>
+      <!--<ul class="right hide-on-med-and-down">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>-->
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner" style="margin-bottom: 18%">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Cheqify Server</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Cheque recognition and text extraction using Tensorflow, OpenCV and Tesseract-OCR</h5>
+      </div>
+      <div class="row center">
+          <form action = "/index" method = "post">
+            <button type="submit" class="btn-large waves-effect waves-light orange">Fetch from API</button>
+          </form>
+          <br>
+          <form action = "/view" method = "post">
+            <button type="submit" class="btn-large waves-effect waves-light green">Analyze</button>
+          </form>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <footer class="page-footer blue">
+    <div class="container">
+    
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by Cheqify | 2017
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="static/js/materialize.js"></script>
+  <script src="static/js/init.js"></script>
+
+  </body>
 </html>
