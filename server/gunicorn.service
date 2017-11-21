@@ -1,0 +1,12 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=aniruddha_mysore
+Group=www-data
+WorkingDirectory=/home/aniruddha_mysore/cheqify-python/server
+ExecStart=gunicorn --access-logfile - --workers 3 --bind unix:/home/aniruddha_mysore/cheqify-python/server/cheqify.sock flaskserver:app
+
+[Install]
+WantedBy=multi-user.target

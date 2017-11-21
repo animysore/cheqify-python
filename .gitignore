@@ -1,3 +1,8 @@
+#Customized
+data.db
+server/static/img/*.jpg
+server/imagedata.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
