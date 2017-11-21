@@ -1,12 +1,10 @@
 server {
     listen 80;
-    server_name http://35.200.185.242;
-
+    server_name 35.200.185.242;
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /home/aniruddha_mysore/cheqify-python/server/static;
+        root /home/aniruddha_mysore/cheqify-python/server/;
     }
-
     location / {
         include proxy_params;
         proxy_pass http://unix:/home/aniruddha_mysore/cheqify-python/server/cheqify.sock;

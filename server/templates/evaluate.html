@@ -8,8 +8,10 @@
 
       <!-- CSS  -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-      <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+      <link href="{{ url_for('static', filename='css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
+      />
+      <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
+      />
 </head>
 
 <body>
@@ -31,14 +33,15 @@
       <div class="section no-pad-bot" id="index-banner" style="margin-bottom: 18%">
             <div class="container">
                   <br>
-                  <h1 class="header center orange-text">Cheqify Server</h1>
+                  <h1 class="header center orange-text">Analysis</h1>
                   <div class="row center">
-                        <h5 class="header col s12 light">Cheque recognition and text extraction using Tensorflow, OpenCV and Tesseract-OCR</h5>
-                  </div>
-                  <div class="row center">
+                        <div class="col s8 offset-s2">
+                              <img  class="responsive-img" src="{{ url_for('static', filename='img/'+user_data.chq_num | string +'.jpg') }}">
+                        </div>
                         <table class="bordered striped">
                               <thead>
                                     <tr>
+                                          <th>Number</th>
                                           <th>Field</th>
                                           <th>Data from API</th>
                                           <th>Extracted Data</th>
@@ -46,55 +49,65 @@
                               </thead>
                               <tbody>
                                     <tr>
+                                          <td>1</td>
                                           <td>Chq_Num</td>
                                           <td> {{ user_data.chq_num }} </td>
-                                          <td> {{ eval_data.chq_num }} </td>                                           
+                                          <td> {{ eval_data.chq_num }} </td>
                                     </tr>
                                     <tr>
+                                          <td>2</td>
                                           <td>Amount in Words</td>
                                           <td> {{ user_data.amount_words }} </td>
-                                          <td> {{ eval_data.amount_words }} </td>                                           
+                                          <td> {{ eval_data.amount_words }} </td>
                                     </tr>
                                     <tr>
+                                          <td>3</td>
                                           <td>Amount in Digits</td>
                                           <td> {{ user_data.amount_digit }} </td>
-                                          <td> {{ eval_data.amount_digit }} </td>                                           
+                                          <td> {{ eval_data.amount_digit }} </td>
                                     </tr>
                                     <tr>
+                                          <td>4</td>
                                           <td>Chq Date</td>
                                           <td> {{ user_data.chq_date }} </td>
-                                          <td> {{ eval_data.chq_date }} </td>                                           
+                                          <td> {{ eval_data.chq_date }} </td>
                                     </tr>
                                     <tr>
+                                          <td>5</td>
                                           <td>MICR Code</td>
                                           <td> {{ user_data.micr_code }} </td>
-                                          <td> {{ eval_data.micr_code }} </td>                                           
+                                          <td> {{ eval_data.micr_code }} </td>
                                     </tr>
                                     <tr>
+                                          <td>6</td>
                                           <td>SAN No</td>
-                                          <td> {{ user_data.micr_code }} </td>
-                                          <td> {{ eval_data.micr_code }} </td>                                           
+                                          <td> {{ user_data.san_no }} </td>
+                                          <td> {{ eval_data.san_no }} </td>
                                     </tr>
                                     <tr>
+                                          <td>7</td>
                                           <td>Beneficiary Name</td>
                                           <td> {{ user_data.ben_name }} </td>
-                                          <td> {{ eval_data.ben_name }} </td>                                           
+                                          <td> {{ eval_data.ben_name }} </td>
                                     </tr>
                                     <tr>
+                                          <td>8</td>
                                           <td>Payee Account Number</td>
                                           <td> {{ user_data.payee_ac_no }} </td>
-                                          <td> {{ eval_data.payee_ac_no }} </td>                                           
+                                          <td> {{ eval_data.payee_ac_no }} </td>
                                     </tr>
                                     <tr>
+                                          <td>9</td>
                                           <td>Chq Stale</td>
                                           <td> {{ user_data.chq_stale }} </td>
-                                          <td> {{ eval_data.chq_stale }} </td>                                           
+                                          <td> {{ eval_data.chq_stale }} </td>
                                     </tr>
                                     <tr>
+                                          <td>10</td>
                                           <td>Amount Match</td>
                                           <td> {{ user_data.amt_match }} </td>
-                                          <td> {{ eval_data.amt_match }} </td>                                           
-                                    </tr>             
+                                          <td> {{ eval_data.amt_match }} </td>
+                                    </tr>
                               </tbody>
                         </table>
                   </div>
@@ -116,8 +129,8 @@
 
       <!--  Scripts-->
       <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="static/js/materialize.js"></script>
-      <script src="static/js/init.js"></script>
+      <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/init.js') }}"></script>
 
 </body>
 
