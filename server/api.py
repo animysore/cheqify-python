@@ -34,7 +34,8 @@ def maincall():
 	      chq_stale char(20),
 	      amount_words char(100),
 	      ben_name char(100),
-	      act_type char(100));''')
+	      act_type char(100),
+          encoding char(100));''')
 
     url = 'http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854'
     
