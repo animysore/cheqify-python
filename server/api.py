@@ -55,10 +55,10 @@ def maincall():
         cur = conn.cursor()
         #only insert if cheque number does not already exist
         cur.execute("SELECT chq_num FROM IMAGEINFO where chq_num="+ str(data['items'][i]['chq_num']))
-        if (cur.fetchall()==[]):
+        if (cur.fetchall()==[] and data['items'][i]['chq_num']!=1234 and data['items'][i]['chq_num']!=12345 and data['items'][i]['chq_num']!=994626):
             url = data['items'][i]['links'][0]['href']
-            conn.execute("INSERT INTO IMAGEINFO (amt_match,chq_date,micr_code,payee_ac_no,amount_digit,chq_num,san_no,chq_stale,amount_words,ben_name,act_type)\
-            VALUES (?,?,?,?,?,?,?,?,?,?,?)",(data['items'][i]['amt_match'],data['items'][i]['chq_date'],data['items'][i]['micr_code'],data['items'][i]['payee_ac_no'],data['items'][i]['amount_digit'],data['items'][i]['chq_num'],data['items'][i]['san_no'],data['items'][i]['chq_stale'],data['items'][i]['amount_words'],data['items'][i]['ben_name'],data['items'][i]['act_type']));        
+            conn.execute("INSERT INTO IMAGEINFO (amt_match,chq_date,micr_code,payee_ac_no,amount_digit,chq_num,san_no,chq_stale,amount_words,ben_name,act_type,encoding)\
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",(data['items'][i]['amt_match'],data['items'][i]['chq_date'],data['items'][i]['micr_code'],data['items'][i]['payee_ac_no'],data['items'][i]['amount_digit'],data['items'][i]['chq_num'],data['items'][i]['san_no'],data['items'][i]['chq_stale'],data['items'][i]['amount_words'],data['items'][i]['ben_name'],data['items'][i]['act_type'],  data['items'][i]['encoding']));        
             conn.commit()
             call(url,data['items'][i]['chq_num'])
 
