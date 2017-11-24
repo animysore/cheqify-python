@@ -1,11 +1,14 @@
 import requests
 import json
+from time import sleep
+import numpy as np
 from PIL import Image
 import shutil
 import io
 from flask import Flask, redirect, url_for, request
 import sqlite3
 import os
+from pytesseract import image_to_string 
 import cv2
 
 script_dir = os.path.dirname(__file__) 
@@ -75,12 +78,62 @@ def analyze(chq_num):
     #cur.execute("SELECT * FROM IMAGEINFO where chq_num = "+chq_num)
     #res = cur.fetchall()
     #img = cv2.imread("static/img/{}.jpg".format(chq_num)
-    if(id == "964626"):
-        data = {'ben_name': "Aniruddha",'chq_num': 923468, 'chq_date':'12/11/2017', 'amount_words': "Ten Thousand Rupees Only", 'amount_digit': 10000, 'payee_ac_no':45448795444,'amt_match':1, 'san_no':4545009, 'micr_code':213142, 'chq_stale': 0}
-    elif(id == "994626"):
-        data = {'ben_name': "Poulami",'chq_num': 567354, 'chq_date':'15/11/2017', 'amount_words': "Thirty Thousand Rupees Only", 'amount_digit': 30000, 'payee_ac_no':98719781987,'amt_match':1, 'san_no':8908008, 'micr_code':12314, 'chq_stale': 0}
-    elif(id == "3"):
-        data = {'ben_name': "Kushal",'chq_num': 923468, 'chq_date':'11/11/2017', 'amount_words': "Twenty Thousand Rupees Only", 'amount_digit': 20000, 'payee_ac_no':45645634556,'amt_match':1, 'san_no':1231144, 'micr_code':786678, 'chq_stale': 0}
-    else:
-        data = {'ben_name': "Adish",'chq_num': 923468, 'chq_date':'129/11/2017', 'amount_words': "Fifty Thousand Rupees Only", 'amount_digit': 50000, 'payee_ac_no':34522341234,'amt_match':1, 'san_no':7897123, 'micr_code':345345, 'chq_stale': 0}
+        
+    img = cv2.imread("/home/aniruddha/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
+    max_brightness = 0
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    canvas = img.copy()
+    #ret,thresh = cv2.threshold(gray,199,255,1)
+    blur = cv2.medianBlur(img,5)
+    edged = cv2.Canny(blur, 25, 70)
+    zz,contours,h= cv2.findContours(edged,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+
+    #cv2.imshow("asd",zz)
+    #cv2.drawContours(img, contours,-1, (0,255,0), 3)
+    for cnt in contours:
+        rect = cv2.boundingRect(cnt)
+        x, y, w, h = rect
+        if w*h > 40000:
+            mask = np.zeros(img.shape, np.uint8)
+            mask[y:y+h, x:x+w] = img[y:y+h, x:x+w]
+            brightness = np.sum(mask)
+            if brightness > max_brightness:
+                brightest_rectangle = rect
+                max_brightness = brightness
+
+    x, y, w, h = brightest_rectangle
+    crop_img = img[y:y+h, x:x+w]
+
+
+    im = img
+    crop_img = img[y:y+h, x:x+w]
+    date = crop_img[int(h*0.09):int(h*0.13), int(w*0.756):int(w*0.958)]
+    name = crop_img[int(h*0.17):int(h*0.267), int(w*0.1):int(w*0.6)]
+    amt_words1 = crop_img[int(h*0.28):int(h*0.36), int(w*0.15):int(w*0.72)]
+    amt_words2 = crop_img[int(h*0.36):int(h*0.45), int(w*0.03):int(w*0.65)]
+    amt_no = crop_img[int(h*0.36):int(h*0.45), int(w*0.77):int(w*0.97)]
+    acc_no = crop_img[int(h*0.49):int(h*0.55), int(w*0.09):int(w*0.40)]
+    micr_code = crop_img[int(h*0.85):int(h*0.95), int(w*0.2):int(w*0.75)]
+    cv2.imshow('name',amt_words1)
+    #cv2.waitKey(0)
+    date = Image.fromarray(date, 'RGB')
+    name = Image.fromarray(name, 'RGB')
+    amt_words1 = Image.fromarray(amt_words1, 'RGB')
+    amt_words2 = Image.fromarray(amt_words2, 'RGB')
+    amt_no = Image.fromarray(amt_no, 'RGB')
+    acc_no = Image.fromarray(acc_no, 'RGB')
+    d = image_to_string(date,lang='eng')
+    n = image_to_string(name,lang='eng')
+    a1 = image_to_string(amt_words1,lang='eng')
+    a1 = a1.rsplit(' ', 1)[0]
+    #print(a1)
+    a2 = image_to_string(amt_words2,lang='eng')
+    ano = image_to_string(amt_no,lang='eng')
+    ano =int(''.join(c for c in ano if c.isdigit()))
+    acno = image_to_string(acc_no,lang='eng')
+    #data = {'cheque':[{'date': d,'name': n, 'amount1': a1, 'amount2': a2,'Ammount(Numbers)': ano,'Account Number': acno}]}
+    #print(data)
+    data = {'ben_name': n,'chq_num': chq_num, 'chq_date':d, 'amount_words': a1, 'amount_digit': ano, 'payee_ac_no':acno,'amt_match':1, 'san_no':7897123, 'micr_code':345345, 'chq_stale': 0}
     return data
+    #with open('data.json', 'w') as outfile:  
+#    json.dump(data, outfile)
