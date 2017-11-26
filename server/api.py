@@ -137,4 +137,3 @@ def analyze(chq_num):
     return data
     #with open('data.json', 'w') as outfile:  
 #    json.dump(data, outfile)
-#print(analyze(964626))
