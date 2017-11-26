@@ -8,6 +8,7 @@ import os
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from api import call, maincall, analyze
+import cv2
 
 UPLOAD_FOLDER = '/home/aniruddha_mysore/cheqify-python/server/static/img'
 STATIC_PATH = '/static'

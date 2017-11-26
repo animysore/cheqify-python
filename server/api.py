@@ -79,7 +79,7 @@ def analyze(chq_num):
     #res = cur.fetchall()
     #img = cv2.imread("static/img/{}.jpg".format(chq_num)
         
-    img = cv2.imread("/home/aniruddha/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
+    img = cv2.imread("/home/poulami/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
     max_brightness = 0
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     canvas = img.copy()
@@ -137,3 +137,4 @@ def analyze(chq_num):
     return data
     #with open('data.json', 'w') as outfile:  
 #    json.dump(data, outfile)
+#print(analyze(964626))
