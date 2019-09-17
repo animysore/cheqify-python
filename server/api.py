@@ -6,39 +6,25 @@ from PIL import Image
 import shutil
 import io
 from flask import Flask, redirect, url_for, request
-import sqlite3
 import os
 from pytesseract import image_to_string 
 import cv2
 
 script_dir = os.path.dirname(__file__) 
-#app = Flask(__name__)
-def call(url,i):
-    headers = {'api-key': '9cf1034d-08c0-497e-b638-4fdb533f0a91'}
-    #print (len(str(para))) # Prints 6717
-    r = requests.get(url, headers=headers)
-    #print (r.status_code) # Prints 200
-    #print(type(image))
-
-    #img = Image.open(StringIO(r.content))
-    with open(os.path.join(script_dir, "static/img/"+str(i)+".jpg"), 'wb') as f:
-        f.write(r.content)
 
 def maincall():
-    conn = sqlite3.connect('data.db')
-    conn.execute('''CREATE TABLE IF NOT EXISTS IMAGEINFO
-         (amt_match char(20),
-	      chq_date  date,
-	      micr_code int,
-	      payee_ac_no int,
-	      amount_digit real,
-	      chq_num int unique,
-	      san_no int,
-	      chq_stale char(20),
-	      amount_words char(100),
-	      ben_name char(100),
-	      act_type char(100),
-          encoding char(100));''')
+    #    amt_match char(20),
+	#     chq_date  date,
+	#     micr_code int,
+	#      payee_ac_no int,
+	#      amount_digit real,
+	#      chq_num int unique,
+	#      san_no int,
+	#      chq_stale char(20),
+	#     amount_words char(100),
+	#      ben_name char(100),
+	#      act_type char(100),
+    #      encoding char(100));''')
 
     url = 'http://apiplatformcloudse-gseapicssbisecond-uqlpluu8.srv.ravcloud.com:8001/ChequeInfo/8730826854'
     
@@ -53,32 +39,8 @@ def maincall():
         return "Fail"
     NoOfImg = data['count']
   
-
-    #print(NoOfImg)
-    for i in range(NoOfImg):
-        cur = conn.cursor()
-        #only insert if cheque number does not already exist
-        cur.execute("SELECT chq_num FROM IMAGEINFO where chq_num="+ str(data['items'][i]['chq_num']))
-        if (cur.fetchall()==[] and data['items'][i]['chq_num']!=1234 and data['items'][i]['chq_num']!=12345 and data['items'][i]['chq_num']!=994626):
-            url = data['items'][i]['links'][0]['href']
-            conn.execute("INSERT INTO IMAGEINFO (amt_match,chq_date,micr_code,payee_ac_no,amount_digit,chq_num,san_no,chq_stale,amount_words,ben_name,act_type,encoding)\
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",(data['items'][i]['amt_match'],data['items'][i]['chq_date'],data['items'][i]['micr_code'],data['items'][i]['payee_ac_no'],data['items'][i]['amount_digit'],data['items'][i]['chq_num'],data['items'][i]['san_no'],data['items'][i]['chq_stale'],data['items'][i]['amount_words'],data['items'][i]['ben_name'],data['items'][i]['act_type'],  data['items'][i]['encoding']));        
-            conn.commit()
-            call(url,data['items'][i]['chq_num'])
-
-    conn.close()
-#maincall()
-
-
-    #print(data)
-    
 def analyze(chq_num):
-    #conn = sqlite3.connect('data.db')
-    #cur = conn.cursor()
-    #cur.execute("SELECT * FROM IMAGEINFO where chq_num = "+chq_num)
-    #res = cur.fetchall()
-    #img = cv2.imread("static/img/{}.jpg".format(chq_num)
-        
+    
     img = cv2.imread("/home/poulami/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
     max_brightness = 0
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -135,5 +97,3 @@ def analyze(chq_num):
     #print(data)
     data = {'ben_name': n,'chq_num': chq_num, 'chq_date':d, 'amount_words': a1, 'amount_digit': ano, 'payee_ac_no':acno,'amt_match':1, 'san_no':7897123, 'micr_code':345345, 'chq_stale': 0}
     return data
-    #with open('data.json', 'w') as outfile:  
-#    json.dump(data, outfile)
