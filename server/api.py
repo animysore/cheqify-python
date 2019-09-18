@@ -40,8 +40,11 @@ def maincall():
     NoOfImg = data['count']
   
 def analyze(chq_num):
+    return 'hello'
+
+def real_analyze(chq_num):
     
-    img = cv2.imread("/home/poulami/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
+    #img = cv2.imread("/home/poulami/Documents/Github/cheqify-python/server/static/img/{}.jpg".format(str(chq_num)))
     max_brightness = 0
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     canvas = img.copy()
