@@ -1,58 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Cheqify</title>
-
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="{{ url_for('static', filename='css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
-  />
-  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
-  />
-</head>
-<body>
-  <nav class="blue" role="navigation">
-    <div class="nav-wrapper container">
-      <span id="logo-container" class="brand-logo">Cheqify</span>
-    </div>
-  </nav>
-  <div class="section no-pad-bot" id="index-banner" style="margin-bottom: 18%">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Cheqify Server</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">Cheque recognition and text extraction using Tensorflow, OpenCV and Tesseract-OCR</h5>
-      </div>
-      <div class="row center">
-          <a href="/upload" class="btn-large waves-effect waves-light orange">Upload Image</a>
-          <br>
-          <br>
-          <a href="/view" class="btn-large waves-effect waves-light green">Analyze</a>
-      </div>
-      <br><br>
-
-    </div>
-  </div>
-
-
-  <footer class="page-footer blue">
-    <div class="container">
-    
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by Aniruddha Mysore and Adish Rao | 2019
-      </div>
-    </div>
-  </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/init.js') }}"></script>
-
-  </body>
-</html>
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="header center orange-text">Cheqify Server</h1>
+<div class="row center">
+    <h5 class="header col s12 light">Cheque recognition and text extraction using Tensorflow, OpenCV and Tesseract-OCR
+    </h5>
+</div>
+<div class="row center">
+    <a href="/upload" class="btn-large waves-effect waves-light red">Upload Image</a>
+    <br>
+    <br>
+    <a href="/gallery" class="btn-large waves-effect waves-light orange">Gallery</a>
+    <br>
+    <br>
+    <a href="/credits" class="btn-large waves-effect waves-light green">Credits</a>
+</div>
+{% endblock %}

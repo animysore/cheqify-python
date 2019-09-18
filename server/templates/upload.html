@@ -1,9 +1,8 @@
-<!doctype html>
-<html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-</html>
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="header center orange-text">Upload new File</h1>
+<form class="center" method=post enctype=multipart/form-data>
+    <input type=file name=file>
+    <input type=submit value=Upload>
+</form>
+{% endblock %}
