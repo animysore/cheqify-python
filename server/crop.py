@@ -53,5 +53,9 @@ def ocr(filename):
         text[f] = image_to_string(crop_field)
         print(f, ':' , text[f])
 
-    cv2.imwrite(f'static/images/canny/{filename}',out)
+    
+    cv2.imwrite(f'static/images/cropped/{filename}',cv2.resize(crop_img,  (640,350)))
+    cv2.imwrite(f'static/images/canny/{filename}',cv2.resize(out,  (640,350)))
     return text
+
+ocr('964626.jpg')
