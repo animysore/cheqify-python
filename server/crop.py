@@ -58,4 +58,4 @@ def ocr(filename):
     cv2.imwrite(f'static/images/canny/{filename}',cv2.resize(out,  (640,350)))
     return text
 
-ocr('964626.jpg')
+ocr('image.jpg')

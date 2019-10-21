@@ -54,11 +54,14 @@ fields = ['chq_num','amount_words', 'amount_digit', 'chq_date',
 
 @app.route('/evaluate/<chq_num>')
 def evaluate(chq_num):
-    with open('./static/data/'+str(chq_num)[:-4]+'.txt') as f:
-        user_data = dict() 
-        for i,val in enumerate(f.read().splitlines()):
-            user_data[fields[i]] = val
-
+    try:
+        with open('./static/data/'+str(chq_num)[:-4]+'.txt') as f:
+            user_data = dict() 
+            for i,val in enumerate(f.read().splitlines()):
+                user_data[fields[i]] = val
+    except: 
+        user_data = dict()
+        
     user_data['chq_num'] = chq_num
     eval_data = analyze(chq_num)
     return render_template('evaluate.html', eval_data=eval_data, user_data=user_data)

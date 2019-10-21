@@ -3,8 +3,53 @@
 <h1 class="header center orange-text">Analysis</h1>
 <div class="row center">
     <div class="col s8 offset-s2">
-        <img class="responsive-img"
-            src="{{ url_for('static', filename='images/cheques/'+user_data.chq_num | string) }}">
+            <style>
+                #cheque {
+                    width: 640px;
+                    height: 350px;
+                    background: url({{ url_for('static', filename='images/cropped/'+user_data.chq_num | string) }}) no-repeat;
+                    position: relative;
+                }
+        
+                #cheque li {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    position: absolute;
+                    top: 0;
+                }
+        
+                #cheque li,
+                #cheque a {
+                    height: 350px;
+                    display: block;
+                }
+        
+                #scanner {
+                    left: 0;
+                    width: 100px;
+                    animation: scanning 5s linear infinite;
+                }
+        
+                @keyframes scanning {
+                    0% {
+                            transform: translate(0, 0);
+                            background: transparent url({{ url_for('static', filename='images/canny/'+user_data.chq_num | string) }}) 0 0 no-repeat;
+                    }
+                    50% {
+                            transform: translate(540px, 0);
+                            background: transparent url({{ url_for('static', filename='images/canny/'+user_data.chq_num | string) }}) -540px 0 no-repeat;
+                    }
+                    100% {
+                            transform: translate(0, 0);
+                            background: transparent url({{ url_for('static', filename='images/canny/'+user_data.chq_num | string) }}) 0 0 no-repeat;
+                    }
+                }
+        
+            </style>
+        <ul id="cheque">
+            <li id="scanner"><a></a></li>
+        </ul>
     </div>
     <table class="bordered striped">
         <thead>
