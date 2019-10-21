@@ -13,6 +13,9 @@ STATIC_PATH = '/static'
 
 app = Flask(__name__, static_url_path=STATIC_PATH)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = 'I am a random secret key'
+fields = ['chq_num','amount_words', 'amount_digit', 'chq_date',
+        'micr_code','san_no','ben_name','payee_ac_no','chq_stale','amt_match']
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -21,6 +24,7 @@ def allowed_file(filename):
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        #try:
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -34,6 +38,10 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            field_list = ['cheq_num','sum_in_words','sum_in_num','cheq_date','MICR','SAN','name','acc_no','Chq_Stale','Amount_Match']
+            with open('./static/data/'+filename[:-4]+'.txt','w') as fil:
+                for key in field_list:
+                    fil.write(request.form[key]+'\n')
             return redirect(url_for('gallery'))
     return render_template('upload.html')
 
@@ -49,8 +57,6 @@ def gallery():
     res = [(img[:-4],img) for img in images]
     return render_template('gallery.html', res = res)
 
-fields = ['chq_num','amount_words', 'amount_digit', 'chq_date',
-        'micr_code','san_no','ben_name','payee_ac_no','chq_stale','amt_match']
 
 @app.route('/evaluate/<chq_num>')
 def evaluate(chq_num):
