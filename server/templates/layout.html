@@ -7,10 +7,8 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="{{ url_for('static', filename='css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
-  />
-  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"
-  />
+  <link href="{{ url_for('static', filename='css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
   <nav class="blue" role="navigation">
@@ -18,7 +16,7 @@
       <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">Cheqify</a>
     </div>
   </nav>
-  <div class="section no-pad-bot" style="margin-bottom: 10%">
+  <div class="section no-pad-bot" style="margin-bottom: 20%">
     <div class="container" style="padding-top: 100px">
         {% block content %}
         {% endblock %}
