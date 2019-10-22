@@ -2,14 +2,21 @@
 {% block content %}
 <h1 class="header center orange-text">Credits</h1>
 <div class="center">
-    <h5 class="header col s12 light">
+    <h5 class="header col s12 light orange-text">
         Made for Web Lab Mini Project.
     </h5>
     <br>
-    <p class="orange-text">
-        Aniruddha Mysore  - 1PE16CS019
-        <br><br>
-        Adish Rao - 1PE16CS006.
-    </p>
+    <div id="per1" class="center">
+        <img id="per_image" src="{{ url_for('static', filename='adish.jpg' | string) }}"/>
+        <h3 id="per_name">Adish Rao</h3>
+        <h4 id="per_name">1PE16CS006</h4>
+        <h6 id="per_name">PES University ECC</h6>
+    </div>
+    <div id="per2" class="center">
+        <img id="per_image" src="{{ url_for('static', filename='aniruddha.jpg' | string) }}"/>
+        <h3 id="per_name">Aniruddha Mysore</h3>
+        <h4 id="per_name">1PE16CS019</h4>
+        <h6 id="per_name">PES University ECC</h6>
+    </div>
 </div>
 {% endblock %}

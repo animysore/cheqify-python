@@ -20,6 +20,15 @@
     <div class="container" style="padding-top: 100px">
         {% block content %}
         {% endblock %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <script>
+              alert('{{message}}')
+            </script>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
   </div>
 

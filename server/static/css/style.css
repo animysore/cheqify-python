@@ -12,3 +12,20 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+#per1 {
+  width: 50%;
+  float: left;
+}
+#per_image{
+  width: 200px;
+  height: 200px;
+}
+#per_name{
+  color: teal;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+  background-color: antiquewhite;
+}
