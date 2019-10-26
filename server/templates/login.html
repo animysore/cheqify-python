@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="header center orange-text">Login</h1>
+<form class="center" method=post enctype=multipart/form-data>
+    <div class="center row">
+        <div class="col s4"></div>
+        <div class="center col s5">
+            <input type="email" placeholder="Email" id="email_id" name='email'/>
+            <input type="password" placeholder="Password" id="password" name='password'/>
+            <input type="submit" id="submit" class="btn-large waves-effect waves-light teal lighten-2"/>
+        </div>
+    </div>
+</form>
+{% endblock %}
