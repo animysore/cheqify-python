@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 from pytesseract import image_to_string 
+import smtplib, ssl
 
 def ocr(filename):
     img = cv2.imread(f'static/images/cheques/{filename}')
@@ -152,6 +153,24 @@ def credits():
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/contactus',methods=['GET', 'POST'])
+def contactus():
+    if request.method == 'POST':
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        sender_email = "dreams2reality2020@gmail.com"  # Enter your address
+        receiver_email = request.form['email']  # Enter receiver address
+        password = "vincere2020d2r"
+        message = """\
+        Chequify
+
+        Thanks for subscribing, """+request.form['name']+""", to our news letter! We appreciate your interest in our development.\n\n"""
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+    return render_template('contactus.html')
 
 @app.route('/',methods=['GET', 'POST'])
 def login():

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="header center orange-text">Subscribe</h1>
+<form class="center" method=post enctype=multipart/form-data>
+    <div class="row" style="margin-top: 25px;" >
+        <div class="col s3"></div>
+        <div class="col s6">
+            <div class='card'>
+                <div class='card-content'>
+                    <fieldset style='border:none'>
+                        <h5 id="per_name" style="font-weight: bold;left:0;">Name</h5>
+                        <input name="name" placeholder="Name" type="text"/>
+                        <h5 id="per_name" style="font-weight: bold;left:0;">Email</h5>
+                        <input name="email" placeholder="Email" type="email"/>
+                        <input type="submit" class="btn-large waves-effect waves-light teal lighten-2"/>
+                    </fieldset>           
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
